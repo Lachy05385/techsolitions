@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Editar Usuario: {{ edit_user.username }}</h6>
+                <div class="btn-group">
+                    <a href="/users/{{ edit_user.username }}/avatar/upload" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-image me-1"></i>Cambiar Avatar
+                    </a>
+                    <a href="/users" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-list me-1"></i>Volver a Lista
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/users/{{ edit_user.username }}/edit">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            {% if edit_user.avatar_url %}
+                            <img src="{{ edit_user.avatar_url }}" alt="Avatar" class="avatar-lg rounded-circle mb-3">
+                            {% else %}
+                            <div class="avatar-lg bg-secondary text-white rounded-circle mb-3 d-flex align-items-center justify-content-center mx-auto">
+                                <span style="font-size: 2rem;">{{ edit_user.username|first|upper }}</span>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <span class="status-badge {{ 'status-active' if edit_user.is_active else 'status-inactive' }}">
+                                    {{ 'Activo' if edit_user.is_active else 'Inactivo' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <!-- Campos del formulario similares a create_user.html pero para edición -->
+                            <!-- Usa {{ edit_user.field }} para valores por defecto -->
+                        </div>
+                    </div>
+                    <!-- Resto del formulario similar a create_user.html -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

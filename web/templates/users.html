@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+
+{% block page_actions %}
+<div>
+    <a href="/users/create" class="btn btn-primary">
+        <i class="fas fa-user-plus me-2"></i>Nuevo Usuario
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card shadow">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
+        <div class="d-flex align-items-center">
+            <input type="text" id="search-input" class="form-control form-control-sm me-2" placeholder="Buscar usuario...">
+            <button class="btn btn-sm btn-outline-secondary" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="users-table" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Avatar</th>
+                        <th>Usuario</th>
+                        <th>Nombre Completo</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>ID</th>
+                        <th>Dirección</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td class="text-center">
+                            {% if user.avatar_url %}
+                            <img src="{{ user.avatar_url }}" alt="Avatar" class="avatar" 
+                                 data-bs-toggle="tooltip" title="Ver avatar">
+                            {% else %}
+                            <div class="avatar bg-secondary text-white mx-auto d-flex align-items-center justify-content-center"
+                                 data-bs-toggle="tooltip" title="Sin avatar">
+                                {{ user.username|first|upper }}
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <strong>{{ user.username }}</strong>
+                            {% if user.created_at %}
+                            <br>
+                            <small class="text-muted">Creado: {{ user.created_at[:10] }}</small>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.full_name or 'N/A' }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.phone_number }}</td>
+                        <td>
+                            <code>{{ user.id_number }}</code>
+                        </td>
+                        <td>
+                            {% if user.address %}
+                            <span data-bs-toggle="tooltip" title="{{ user.address }}">
+                                {{ user.address[:20] }}{% if user.address|length > 20 %}...{% endif %}
+                            </span>
+                            {% else %}
+                            <span class="text-muted">N/A</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="status-badge {{ 'status-active' if user.is_active else 'status-inactive' }}">
+                                {{ 'Activo' if user.is_active else 'Inactivo' }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <a href="/users/{{ user.username }}/edit" class="btn btn-outline-primary" 
+                                   data-bs-toggle="tooltip" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-outline-info" 
+                                        onclick="viewUser('{{ user.username }}')"
+                                        data-bs-toggle="tooltip" title="Ver detalles">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-warning" 
+                                        onclick="toggleUserStatus('{{ user.username }}', {{ user.is_active }})"
+                                        data-bs-toggle="tooltip" title="{{ 'Desactivar' if user.is_active else 'Activar' }}">
+                                    <i class="fas {{ 'fa-toggle-on' if user.is_active else 'fa-toggle-off' }}"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-danger" 
+                                        onclick="confirmDelete('{{ user.username }}')"
+                                        data-bs-toggle="tooltip" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Paginación -->
+        {% if total_pages > 1 %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                    <a class="page-link" href="/users?page={{ page-1 }}&limit={{ limit }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                
+                {% for p in range(1, total_pages + 1) %}
+                    {% if p >= page-2 and p <= page+2 %}
+                    <li class="page-item {% if p == page %}active{% endif %}">
+                        <a class="page-link" href="/users?page={{ p }}&limit={{ limit }}">{{ p }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                    <a class="page-link" href="/users?page={{ page+1 }}&limit={{ limit }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+        
+        <div class="text-muted text-center mt-3">
+            Mostrando {{ users|length }} de {{ total_users }} usuarios
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ver usuario -->
+<div class="modal fade" id="viewUserModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalles del Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="user-details-content">
+                <!-- Los detalles se cargarán aquí -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="edit-user-btn">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalTitle">Confirmar Acción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="confirmModalBody">
+                ¿Estás seguro?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmActionBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Variables globales
+let currentUserToDelete = null;
+let currentUserToToggle = null;
+let currentUserStatus = null;
+
+// Búsqueda en la tabla
+document.getElementById('search-input').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll('#users-table tbody tr');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchTerm) ? '' : 'none';
+    });
+});
+
+function clearSearch() {
+    document.getElementById('search-input').value = '';
+    const rows = document.querySelectorAll('#users-table tbody tr');
+    rows.forEach(row => row.style.display = '');
+}
+
+// Ver detalles del usuario
+async function viewUser(username) {
+    try {
+        const response = await fetch(`/users/${username}`);
+        if (response.ok) {
+            const user = await response.json();
+            
+            const content = `
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        ${user.avatar_url ? 
+                            `<img src="${user.avatar_url}" alt="Avatar" class="avatar-lg rounded-circle mb-3">` : 
+                            `<div class="avatar-lg bg-secondary text-white rounded-circle mb-3 d-flex align-items-center justify-content-center mx-auto">
+                                <span style="font-size: 2rem;">${user.username.charAt(0).toUpperCase()}</span>
+                            </div>`
+                        }
+                        <h4 class="mb-0">${user.username}</h4>
+                        <span class="status-badge ${user.is_active ? 'status-active' : 'status-inactive'} mt-2">
+                            ${user.is_active ? 'Activo' : 'Inactivo'}
+                        </span>
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-sm">
+                            <tr>
+                                <th width="30%">Nombre Completo:</th>
+                                <td>${user.full_name || 'N/A'}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>${user.email}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono:</th>
+                                <td>${user.phone_number}</td>
+                            </tr>
+                            <tr>
+                                <th>Identificación:</th>
+                                <td><code>${user.id_number}</code></td>
+                            </tr>
+                            <tr>
+                                <th>Dirección:</th>
+                                <td>${user.address || 'N/A'}</td>
+                            </tr>
+                            <tr>
+                                <th>Creado:</th>
+                                <td>${user.created_at ? new Date(user.created_at).toLocaleString() : 'N/A'}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('user-details-content').innerHTML = content;
+            document.getElementById('edit-user-btn').onclick = function() {
+                window.location.href = `/users/${username}/edit`;
+            };
+            
+            const modal = new bootstrap.Modal(document.getElementById('viewUserModal'));
+            modal.show();
+        }
+    } catch (error) {
+        console.error('Error viewing user:', error);
+        alert('Error al cargar detalles del usuario');
+    }
+}
+
+// Cambiar estado del usuario
+function toggleUserStatus(username, currentStatus) {
+    currentUserToToggle = username;
+    currentUserStatus = currentStatus;
+    
+    document.getElementById('confirmModalTitle').textContent = 'Confirmar Cambio de Estado';
+    document.getElementById('confirmModalBody').textContent = 
+        `¿Estás seguro que quieres ${currentStatus ? 'desactivar' : 'activar'} al usuario ${username}?`;
+    
+    document.getElementById('confirmActionBtn').className = 'btn btn-warning';
+    document.getElementById('confirmActionBtn').textContent = currentStatus ? 'Desactivar' : 'Activar';
+    document.getElementById('confirmActionBtn').onclick = performToggleStatus;
+    
+    const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    modal.show();
+}
+
+async function performToggleStatus() {
+    if (!currentUserToToggle) return;
+    
+    try {
+        const formData = new FormData();
+        formData.append('is_active', !currentUserStatus);
+        
+        const response = await fetch(`/users/${currentUserToToggle}/edit`, {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (response.ok) {
+            location.reload(); // Recargar para ver cambios
+        } else {
+            alert('Error al cambiar el estado del usuario');
+        }
+    } catch (error) {
+        console.error('Error toggling user status:', error);
+        alert('Error al cambiar el estado del usuario');
+    }
+    
+    // Cerrar modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+    modal.hide();
+}
+
+// Eliminar usuario
+function confirmDelete(username) {
+    currentUserToDelete = username;
+    
+    document.getElementById('confirmModalTitle').textContent = 'Confirmar Eliminación';
+    document.getElementById('confirmModalBody').textContent = 
+        `¿Estás seguro que quieres eliminar al usuario ${username}? Esta acción no se puede deshacer.`;
+    
+    document.getElementById('confirmActionBtn').className = 'btn btn-danger';
+    document.getElementById('confirmActionBtn').textContent = 'Eliminar';
+    document.getElementById('confirmActionBtn').onclick = performDelete;
+    
+    const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
+    modal.show();
+}
+
+async function performDelete() {
+    if (!currentUserToDelete) return;
+    
+    try {
+        const response = await fetch(`/users/${currentUserToDelete}/delete`);
+        
+        if (response.ok) {
+            location.reload(); // Recargar para ver cambios
+        } else {
+            alert('Error al eliminar el usuario');
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Error al eliminar el usuario');
+    }
+    
+    // Cerrar modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+    modal.hide();
+}
+
+// Inicializar DataTables si hay muchos usuarios
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector('#users-table tbody tr').length > 10) {
+        $('#users-table').DataTable({
+            pageLength: 10,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json'
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lázaro Saavedra | Ingeniero Informático</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            top: 20%; left: 10%; border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.1) 0%, transparent 70%);
+            bottom: 20%; right: 10%; border-radius: 50%;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: #ffffff; margin-bottom: 1rem; z-index: 1; letter-spacing: 1px;
+        }
+        .hero h2 {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: #00d4ff; margin-bottom: 2rem; z-index: 1; font-weight: 400;
+        }
+        .hero p {
+            max-width: 700px; font-size: 1.1rem; color: #b0b8c8;
+            margin-bottom: 2rem; z-index: 1;
+        }
+        .btn-group {
+            display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; z-index: 1;
+        }
+        .btn {
+            padding: 0.8rem 2rem; border-radius: 50px; text-decoration: none;
+            font-weight: 600; transition: all 0.3s ease; font-size: 1rem;
+            display: inline-block; cursor: pointer; border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #00d4ff, #00ffa3); color: #0a0e27;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        .btn-outline {
+            border: 2px solid #00d4ff; color: #00d4ff; background: transparent;
+        }
+        .btn-outline:hover {
+            background: #00d4ff; color: #0a0e27; transform: translateY(-3px);
+        }
+
+        section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+        .section-title {
+            font-size: 2rem; color: #ffffff; margin-bottom: 3rem;
+            text-align: center; position: relative;
+        }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 3px;
+            background: linear-gradient(90deg, #00d4ff, #00ffa3);
+            margin: 1rem auto 0; border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+        }
+        .about-text p { margin-bottom: 1rem; color: #b0b8c8; font-size: 1.05rem; }
+        .about-text strong { color: #00d4ff; }
+
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .skill-card {
+            background: #141830; padding: 1.5rem; border-radius: 12px;
+            border: 1px solid #1f2545; transition: all 0.3s ease;
+        }
+        .skill-card:hover {
+            border-color: #00d4ff; transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+        .skill-card h3 { color: #00ffa3; margin-bottom: 0.8rem; font-size: 1.1rem; }
+        .skill-card ul { list-style: none; color: #b0b8c8; font-size: 0.95rem; }
+        .skill-card ul li { padding: 0.2rem 0; }
+
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: #141830; border-radius: 16px; padding: 2rem;
+            border: 1px solid #1f2545; transition: all 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+        .project-card:hover {
+            border-color: #00ffa3; transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 255, 163, 0.1);
+        }
+        .project-card h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .project-tag {
+            display: inline-block; background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff; padding: 0.2rem 0.8rem; border-radius: 20px;
+            font-size: 0.8rem; margin-bottom: 1rem; font-weight: 600;
+            align-self: flex-start;
+        }
+        .project-card p { color: #b0b8c8; margin-bottom: 1rem; flex-grow: 1; }
+        .project-features { list-style: none; margin-bottom: 1.5rem; }
+        .project-features li {
+            color: #b0b8c8; font-size: 0.9rem; padding: 0.3rem 0;
+            padding-left: 1.2rem; position: relative;
+        }
+        .project-features li::before {
+            content: '▹'; position: absolute; left: 0; color: #00ffa3;
+        }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .tech-badge {
+            background: #1f2545; color: #00d4ff; padding: 0.2rem 0.7rem;
+            border-radius: 6px; font-size: 0.8rem; font-weight: 500;
+        }
+        .project-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .project-links a, .project-links button {
+            color: #00ffa3; text-decoration: none; font-weight: 600;
+            font-size: 0.95rem; transition: color 0.3s;
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: none; border: none; cursor: pointer; font-family: inherit;
+        }
+        .project-links a:hover, .project-links button:hover { color: #00d4ff; }
+
+        .note {
+            font-size: 0.8rem; color: #6b7280; font-style: italic;
+            margin-top: 0.5rem; padding: 0.5rem;
+            background: rgba(255, 193, 7, 0.05); border-radius: 6px;
+            border-left: 2px solid #ffc107;
+        }
+
+        /* Modal para previsualizar proyectos */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9);
+            z-index: 1000; justify-content: center; align-items: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: #0a0e27; border-radius: 16px; width: 100%;
+            max-width: 1200px; height: 90vh; display: flex;
+            flex-direction: column; overflow: hidden;
+            border: 1px solid #1f2545;
+        }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 1.5rem; background: #141830; border-bottom: 1px solid #1f2545;
+        }
+        .modal-header h3 { color: #ffffff; font-size: 1.2rem; }
+        .modal-close {
+            background: none; border: none; color: #b0b8c8; font-size: 1.5rem;
+            cursor: pointer; transition: color 0.3s;
+        }
+        .modal-close:hover { color: #ff4757; }
+        .modal-body { flex: 1; position: relative; background: #fff; }
+        .modal-iframe {
+            width: 100%; height: 100%; border: none;
+        }
+        .loading-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0a0e27; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 10;
+            color: #b0b8c8; text-align: center; padding: 2rem;
+        }
+        .spinner {
+            width: 50px; height: 50px; border: 4px solid #1f2545;
+            border-top: 4px solid #00d4ff; border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 1.5rem;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .loading-overlay h4 { color: #00d4ff; margin-bottom: 0.5rem; font-size: 1.3rem; }
+        .loading-overlay p { max-width: 400px; font-size: 0.95rem; }
+
+        .contact-section { text-align: center; }
+        .contact-links {
+            display: flex; gap: 1.5rem; justify-content: center;
+            flex-wrap: wrap; margin-top: 2rem;
+        }
+        .contact-links a {
+            color: #00d4ff; text-decoration: none; font-size: 1.1rem;
+            padding: 0.8rem 1.5rem; border: 1px solid #1f2545;
+            border-radius: 50px; transition: all 0.3s ease;
+        }
+        .contact-links a:hover {
+            background: #00d4ff; color: #0a0e27; border-color: #00d4ff;
+        }
+
+        footer {
+            text-align: center; padding: 2rem; color: #6b7280;
+            font-size: 0.9rem; border-top: 1px solid #1f2545;
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; }
+            section { padding: 3rem 1.5rem; }
+            .modal-content { height: 95vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LANGUAGE TOGGLE -->
+    <div class="lang-toggle">
+        <button id="btn-es" class="active" onclick="setLang('es')">ES</button>
+        <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Lázaro Alberto Saavedra Gómez</h1>
+        <h2 data-es="Ingeniero Informático | Backend Developer (FastAPI · Python · Java)" 
+            data-en="Computer Engineer | Backend Developer (FastAPI · Python · Java)">
+            Ingeniero Informático | Backend Developer (FastAPI · Python · Java)
+        </h2>
+        <p data-es="Combino una sólida base en economía y negocios con desarrollo de software backend para crear soluciones empresariales que resuelven problemas reales: sistemas de gestión, inventario, ventas y automatización de procesos contables."
+           data-en="I combine a solid background in economics and business with backend software development to build enterprise solutions that solve real-world problems: management systems, inventory, sales, and accounting process automation.">
+            Combino una sólida base en economía y negocios con desarrollo de software backend para crear soluciones empresariales que resuelven problemas reales.
+        </p>
+        <div class="btn-group">
+            <a href="#projects" class="btn btn-primary" 
+               data-es="Ver Proyectos" data-en="View Projects">Ver Proyectos</a>
+            <a href="https://github.com/Lachy05385" target="_blank" rel="noopener" class="btn btn-outline">
+                💻 GitHub
+            </a>
+            <a href="#contact" class="btn btn-outline" 
+               data-es="Contacto" data-en="Contact">Contacto</a>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2 class="section-title" data-es="Sobre Mí" data-en="About Me">Sobre Mí</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p data-es="Soy <strong>Ingeniero en Informática</strong> (graduado en 2025) y <strong>Técnico en Economía</strong>. Esta combinación me permite entender no solo el código, sino también la lógica de negocio, los costos y la rentabilidad."
+                   data-en="I am a <strong>Computer Engineer</strong> (graduated in 2025) and an <strong>Economics Technician</strong>. This combination allows me to understand not only code but also business logic, costs, and profitability.">
+                    Soy <strong>Ingeniero en Informática</strong> (graduado en 2025) y <strong>Técnico en Economía</strong>. Esta combinación me permite entender no solo el código, sino también la lógica de negocio, los costos y la rentabilidad.
+                </p>
+                <p data-es="Tengo más de 20 años de experiencia en el sector productivo y hotelero, donde ocupé roles como Gerente de Ventas, Analista de Sistemas y Especialista en Costos. Desde 2015 gestiono mi propio negocio como fotógrafo y diseñador gráfico, y durante ese período cursé la carrera de Ingeniería Informática."
+                   data-en="I have over 20 years of experience in the production and hospitality sectors, holding roles such as Sales Manager, Systems Analyst, and Cost Specialist. Since 2015 I have managed my own business as a photographer and graphic designer, and during that period I completed my Computer Engineering degree.">
+                    Tengo más de 20 años de experiencia en el sector productivo y hotelero, donde ocupé roles como Gerente de Ventas, Analista de Sistemas y Especialista en Costos. Desde 2015 gestiono mi propio negocio como fotógrafo y diseñador gráfico, y durante ese período cursé la carrera de Ingeniería Informática.
+                </p>
+                <p data-es="Mi objetivo es desarrollar <strong>software empresarial</strong> que sea intuitivo, seguro y que aporte valor real a los negocios, usando tecnologías modernas como FastAPI, SQLAlchemy y Pydantic. Puedes ver todo mi código en <a href='https://github.com/Lachy05385' target='_blank' style='color: var(--accent-1);'>mi GitHub</a>."
+                   data-en="My goal is to develop <strong>enterprise software</strong> that is intuitive, secure, and delivers real business value, using modern technologies such as FastAPI, SQLAlchemy, and Pydantic. You can see all my code on <a href='https://github.com/Lachy05385' target='_blank' style='color: var(--accent-1);'>my GitHub</a>.">
+                    Mi objetivo es desarrollar <strong>software empresarial</strong> que sea intuitivo, seguro y que aporte valor real a los negocios.
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🐍 Backend</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>FastAPI</li>
+                        <li>SQLAlchemy</li>
+                        <li>Pydantic</li>
+                        <li>Java / C++</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>🗄️ Bases de Datos</h3>
+                    <ul>
+                        <li>PostgreSQL</li>
+                        <li>SQLite</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>🔐 Seguridad & APIs</h3>
+                    <ul>
+                        <li>JWT / OAuth2</li>
+                        <li>REST APIs</li>
+                        <li>Roles y permisos</li>
+                        <li>Hash de contraseñas</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>🧰 Herramientas</h3>
+                    <ul>
+                        <li>OCR (procesamiento)</li>
+                        <li>Git / GitHub</li>
+                        <li>Render</li>
+                        <li>Adobe Suite</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2 class="section-title" data-es="Proyectos" data-en="Projects">Proyectos</h2>
+        <div class="projects-grid">
+
+            <!-- MiPOS -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>MiPOS</h3>
+                    <span class="prod-badge" data-es="● En Producción" data-en="● In Production">● En Producción</span>
+                </div>
+                <span class="project-tag" data-es="Sistema de Gestión" data-en="Management System">Sistema de Gestión</span>
+                <p data-es="Sistema completo de inventario y ventas multi-punto de venta. Permite controlar el stock en tiempo real, registrar ventas en efectivo y transferencia, gestionar usuarios con roles y permisos, y administrar múltiples puntos de venta desde un panel central."
+                   data-en="Complete multi-point-of-sale inventory and sales system. It allows real-time stock control, cash and transfer sales, user and role management, and multi-POS administration from a central panel.">
+                    Sistema completo de inventario y ventas multi-punto de venta. Permite controlar el stock en tiempo real, registrar ventas en efectivo y transferencia, gestionar usuarios con roles y permisos, y administrar múltiples puntos de venta desde un panel central.
+                </p>
+                <ul class="project-features">
+                    <li data-es="Inventario en tiempo real multi-POS" data-en="Real-time multi-POS inventory">Inventario en tiempo real multi-POS</li>
+                    <li data-es="Ventas y caja por turno" data-en="Sales and cash register per shift">Ventas y caja por turno</li>
+                    <li data-es="Gestión de usuarios y roles" data-en="User and role management">Gestión de usuarios y roles</li>
+                    <li data-es="Reportes de ventas e inventario" data-en="Sales and inventory reports">Reportes de ventas e inventario</li>
+                    <li data-es="Autenticación JWT y contraseñas hasheadas" data-en="JWT authentication and hashed passwords">Autenticación JWT y contraseñas hasheadas</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge highlight">FastAPI</span>
+                    <span class="tech-badge highlight">SQLAlchemy</span>
+                    <span class="tech-badge highlight">Pydantic</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">SQLite</span>
+                    <span class="tech-badge">JWT</span>
+                </div>
+                <div class="project-links">
+                    <button onclick="openProject('https://inventary-multipos.onrender.com', 'MiPOS')">
+                        ▶ <span data-es="Ver Demo" data-en="View Demo">Ver Demo</span>
+                    </button>
+                    <a href="https://github.com/Lachy05385/inventary_multipos" target="_blank" rel="noopener">
+                        💻 <span data-es="Código Fuente" data-en="Source Code">Código Fuente</span>
+                    </a>
+                </div>
+                <p class="note" data-es="⚠️ Servidor gratuito: puede tardar hasta 60s en cargar la primera vez." 
+                   data-en="⚠️ Free server: may take up to 60s to load the first time.">
+                    ⚠️ Servidor gratuito: puede tardar hasta 60s en cargar la primera vez.
+                </p>
+            </div>
+
+            <!-- Transferencias Bancarias -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 data-es="Transferencias Bancarias" data-en="Bank Transfers">Transferencias Bancarias</h3>
+                    <span class="prod-badge" data-es="● En Producción" data-en="● In Production">● En Producción</span>
+                </div>
+                <span class="project-tag" data-es="Solución Contable" data-en="Accounting Solution">Solución Contable</span>
+                <p data-es="Plataforma web para despachos contables que automatiza el control de transferencias bancarias. Captura y procesa automáticamente el texto de cada transferencia mediante OCR, lo estructura en campos contables y permite cotejarlas con el estado de cuenta real mediante un módulo de confirmación en tiempo real."
+                   data-en="Web platform for accounting firms that automates bank transfer control. It automatically captures and processes each transfer's text using OCR, structures it into accounting fields, and allows reconciliation with the actual bank statement through a real-time confirmation module.">
+                    Plataforma web para despachos contables que automatiza el control de transferencias bancarias. Captura y procesa automáticamente el texto de cada transferencia mediante OCR.
+                </p>
+                <ul class="project-features">
+                    <li data-es="Captura inteligente de datos (texto bancario e imagen)" data-en="Smart data capture (bank text and image)">Captura inteligente de datos (texto bancario e imagen)</li>
+                    <li data-es="Estructuración automática: monto, fecha, ordenante, beneficiario, referencia" data-en="Automatic structuring: amount, date, sender, beneficiary, reference">Estructuración automática de campos contables</li>
+                    <li data-es="Procesamiento contable y clasificación automática" data-en="Accounting processing and automatic classification">Procesamiento contable y clasificación automática</li>
+                    <li data-es="Módulo de confirmación y cuadre con estado de cuenta" data-en="Confirmation and bank statement reconciliation module">Módulo de confirmación y cuadre con estado de cuenta</li>
+                    <li data-es="Reduce hasta un 70% el tiempo de conciliación manual" data-en="Reduces manual reconciliation time by up to 70%">Reduce hasta un 70% el tiempo de conciliación manual</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge highlight">FastAPI</span>
+                    <span class="tech-badge highlight">SQLAlchemy</span>
+                    <span class="tech-badge highlight">Pydantic</span>
+                    <span class="tech-badge">OCR</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">SQLite</span>
+                    <span class="tech-badge">JWT</span>
+                </div>
+                <div class="project-links">
+                    <button onclick="openProject('https://gestion-transferencias-bancarias-2.onrender.com/landing', 'Transferencias Bancarias')">
+                        ▶ <span data-es="Ver Demo" data-en="View Demo">Ver Demo</span>
+                    </button>
+                    <a href="https://github.com/Lachy05385/Gestion_Transferencias_bancarias" target="_blank" rel="noopener">
+                        💻 <span data-es="Código Fuente" data-en="Source Code">Código Fuente</span>
+                    </a>
+                </div>
+                <p class="note" data-es="⚠️ Servidor gratuito: puede tardar hasta 60s en cargar la primera vez." 
+                   data-en="⚠️ Free server: may take up to 60s to load the first time.">
+                    ⚠️ Servidor gratuito: puede tardar hasta 60s en cargar la primera vez.
+                </p>
+            </div>
+
+            <!-- Gestion_ventas_java -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Gestión de Ventas (Java)</h3>
+                </div>
+                <span class="project-tag" data-es="Aplicación Java" data-en="Java Application">Aplicación Java</span>
+                <p data-es="Sistema de gestión de varios puntos de venta con control de turnos de trabajo. Desarrollado en Java, aplicando programación orientada a objetos y arquitectura de software."
+                   data-en="Management system for multiple points of sale with shift control. Developed in Java, applying object-oriented programming and software architecture.">
+                    Sistema de gestión de varios puntos de venta con control de turnos de trabajo. Desarrollado en Java, aplicando programación orientada a objetos.
+                </p>
+                <ul class="project-features">
+                    <li data-es="Gestión de múltiples puntos de venta" data-en="Multi-point-of-sale management">Gestión de múltiples puntos de venta</li>
+                    <li data-es="Control de turnos de trabajo" data-en="Work shift control">Control de turnos de trabajo</li>
+                    <li data-es="Programación orientada a objetos (POO)" data-en="Object-oriented programming (OOP)">Programación orientada a objetos (POO)</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Java</span>
+                    <span class="tech-badge">POO</span>
+                    <span class="tech-badge">SQL</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Lachy05385/Gestion_ventas_java" target="_blank" rel="noopener">
+                        💻 <span data-es="Ver Código Fuente" data-en="View Source Code">Ver Código Fuente</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- user_management_arg2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>User Management (Base Template)</h3>
+                </div>
+                <span class="project-tag" data-es="Plantilla Reutilizable" data-en="Reusable Template">Plantilla Reutilizable</span>
+                <p data-es="Plantilla base para la gestión de usuarios y permisos en aplicaciones. Diseñada para ser reutilizada como punto de partida en el desarrollo de nuevas apps, con sistema de roles y control de acceso."
+                   data-en="Base template for user and permission management in applications. Designed to be reused as a starting point for new apps, with roles and access control system.">
+                    Plantilla base para la gestión de usuarios y permisos en aplicaciones. Diseñada para ser reutilizada como punto de partida en el desarrollo de nuevas apps.
+                </p>
+                <ul class="project-features">
+                    <li data-es="Gestión de usuarios y perfiles" data-en="User and profile management">Gestión de usuarios y perfiles</li>
+                    <li data-es="Sistema de permisos y roles" data-en="Permissions and roles system">Sistema de permisos y roles</li>
+                    <li data-es="Base reutilizable para nuevos proyectos" data-en="Reusable base for new projects">Base reutilizable para nuevos proyectos</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">FastAPI</span>
+                    <span class="tech-badge">JWT</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Lachy05385/user_management_arg2" target="_blank" rel="noopener">
+                        💻 <span data-es="Ver Código Fuente" data-en="View Source Code">Ver Código Fuente</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- gestion_pedidos_online -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 data-es="Gestión de Pedidos Online" data-en="Online Order Management">Gestión de Pedidos Online</h3>
+                </div>
+                <span class="project-tag" data-es="Sistema de Pedidos" data-en="Order System">Sistema de Pedidos</span>
+                <p data-es="Aplicación para la gestión y rastreo de pedidos en línea. Permite administrar el ciclo completo de un pedido, desde su creación hasta su entrega, con seguimiento de estados."
+                   data-en="Application for online order management and tracking. It manages the full order lifecycle, from creation to delivery, with status tracking.">
+                    Aplicación para la gestión y rastreo de pedidos en línea. Permite administrar el ciclo completo de un pedido, desde su creación hasta su entrega.
+                </p>
+                <ul class="project-features">
+                    <li data-es="Registro y gestión de pedidos" data-en="Order registration and management">Registro y gestión de pedidos</li>
+                    <li data-es="Rastreo de estados del pedido" data-en="Order status tracking">Rastreo de estados del pedido</li>
+                    <li data-es="Ciclo completo: creación → entrega" data-en="Full cycle: creation → delivery">Ciclo completo: creación → entrega</li>
+                </ul>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Web App</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Lachy05385/gestion_pedidos_online" target="_blank" rel="noopener">
+                        💻 <span data-es="Ver Código Fuente" data-en="View Source Code">Ver Código Fuente</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title" data-es="Contacto" data-en="Contact">Contacto</h2>
+        <p style="color: var(--text-dim); font-size: 1.1rem;"
+           data-es="¿Tienes un proyecto en mente o buscas un desarrollador con visión de negocio? Hablemos."
+           data-en="Do you have a project in mind or are you looking for a developer with business insight? Let's talk.">
+            ¿Tienes un proyecto en mente o buscas un desarrollador con visión de negocio? Hablemos.
+        </p>
+        <div class="contact-links">
+            <a href="mailto:lazaro.saavedrag@gmail.com">📧 lazaro.saavedrag@gmail.com</a>
+            <a href="tel:+5352836429">📱 +53 52836429</a>
+            <a href="https://github.com/Lachy05385" target="_blank" rel="noopener">💻 github.com/Lachy05385</a>
+        </div>
+    </section>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Proyecto</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="spinner"></div>
+                    <h4 data-es="Despertando el servidor..." data-en="Waking up the server...">Despertando el servidor...</h4>
+                    <p data-es="Esta aplicación está alojada en un servidor gratuito (Render) que se suspende tras un período de inactividad. Por favor, espera hasta 60 segundos mientras se reactiva. ¡Gracias por tu paciencia!"
+                       data-en="This application is hosted on a free server (Render) that sleeps after a period of inactivity. Please wait up to 60 seconds while it wakes up. Thank you for your patience!">
+                        Esta aplicación está alojada en un servidor gratuito (Render) que se suspende tras un período de inactividad. Por favor, espera hasta 60 segundos mientras se reactiva.
+                    </p>
+                </div>
+                <iframe id="projectIframe" class="modal-iframe" style="display:none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Lázaro Alberto Saavedra Gómez — <span data-es="Ingeniero Informático" data-en="Computer Engineer">Ingeniero Informático</span></p>
+        <p style="margin-top: 0.5rem;">
+            <a href="https://github.com/Lachy05385" target="_blank" rel="noopener" style="color: var(--accent-1); text-decoration: none;">GitHub</a> · 
+            <a href="mailto:lazaro.saavedrag@gmail.com" style="color: var(--accent-1); text-decoration: none;">Email</a>
+        </p>
+    </footer>
+
+    <script>
+        // ---- Language switching ----
+        function setLang(lang) {
+            document.querySelectorAll('[data-es][data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute('data-' + lang);
+            });
+            document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.documentElement.lang = lang;
+            localStorage.setItem('portfolio-lang', lang);
+        }
+
+        const savedLang = localStorage.getItem('portfolio-lang');
+        if (savedLang) setLang(savedLang);
+
+        // ---- Modal ----
+        let loadingTimeout;
+        function openProject(url, title) {
+            const modal = document.getElementById('projectModal');
+            const iframe = document.getElementById('projectIframe');
+            const loading = document.getElementById('loadingOverlay');
+            const modalTitle = document.getElementById('modalTitle');
+
+            modalTitle.textContent = title;
+            modal.classList.add('active');
+
+            iframe.style.display = 'none';
+            loading.style.display = 'flex';
+
+            iframe.src = url;
+
+            clearTimeout(loadingTimeout);
+            iframe.onload = function() {
+                loading.style.display = 'none';
+                iframe.style.display = 'block';
+                clearTimeout(loadingTimeout);
+            };
+
+            loadingTimeout = setTimeout(() => {
+                loading.style.display = 'none';
+                iframe.style.display = 'block';
+            }, 65000);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('projectModal');
+            const iframe = document.getElementById('projectIframe');
+            modal.classList.remove('active');
+            iframe.src = '';
+            clearTimeout(loadingTimeout);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        document.getElementById('projectModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+
+</body>
+</html>
+</html>
