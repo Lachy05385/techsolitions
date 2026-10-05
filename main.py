@@ -134,6 +134,9 @@ async def portafolio():
 async def portafolio():
     return FileResponse("templates/portafolio.html")
 
+@app.get("/raul", include_in_schema=False)
+async def mtto():
+    return FileResponse("templates/raul.html")
 
 
 
@@ -610,6 +613,13 @@ def read_root():
             }
         }
     }
+
+#leeds
+
+
+
+
+
 
 # ========== EJECUCIÓN ==========
 if __name__ == "__main__":

@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raúl Pérez | Mantenimiento General, Electricidad y Plomería</title>
+  <meta name="description" content="Servicios profesionales de mantenimiento general, electricidad, plomería, instalación de aire acondicionado, calentadores y perforación de paredes. Raúl Pérez, técnico experimentado. Llame al +53 5 261 6236.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1e3a5f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Raúl Pérez | Mantenimiento General y Instalaciones">
+  <meta property="og:description" content="Electricidad, plomería, aire acondicionado, calentadores y perforación de paredes. Servicio profesional y confiable.">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:site_name" content="Raúl Pérez - Mantenimiento General">
+  <link rel="canonical" href="https://raulperez-mantenimiento.com/">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-primary: #1e3a5f;
+      --color-primary-light: #2c5282;
+      --color-accent: #e67e22;
+      --color-accent-hover: #d35400;
+      --color-bg: #f7f9fc;
+      --color-surface: #ffffff;
+      --color-text: #1a202c;
+      --color-text-light: #4a5568;
+      --color-border: #e2e8f0;
+      --color-success: #25d366;
+      --color-success-hover: #1ebe5a;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+      --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ===== UTILIDADES ===== */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section--soft {
+      background-color: #eef2f7;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 48px;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .section-head p {
+      font-size: 1.1rem;
+      color: var(--color-text-light);
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .icon--stroke {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ===== BOTONES ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-family: var(--font);
+      line-height: 1.2;
+    }
+
+    .btn--whatsapp {
+      background-color: var(--color-success);
+      color: #fff;
+      border-color: var(--color-success);
+    }
+
+    .btn--whatsapp:hover {
+      background-color: var(--color-success-hover);
+      border-color: var(--color-success-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--accent {
+      background-color: var(--color-accent);
+      color: #fff;
+      border-color: var(--color-accent);
+    }
+
+    .btn--accent:hover {
+      background-color: var(--color-accent-hover);
+      border-color: var(--color-accent-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    .btn--outline:hover {
+      background-color: var(--color-primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .btn--lg {
+      padding: 16px 32px;
+      font-size: 1.05rem;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background-color: var(--color-primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-sub {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.85;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .site-nav ul {
+      display: flex;
+      gap: 28px;
+    }
+
+    .site-nav a {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .site-nav a:hover {
+      color: #fff;
+      border-bottom-color: var(--color-accent);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-toggle-bar,
+    .nav-toggle-bar::before,
+    .nav-toggle-bar::after {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-toggle-bar::before,
+    .nav-toggle-bar::after {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    .nav-toggle-bar::before { top: -7px; }
+    .nav-toggle-bar::after { top: 7px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 50%, #1a365d 100%);
+      color: #fff;
+      padding: 100px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(230,126,34,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero-lead {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      opacity: 0.9;
+      margin-bottom: 36px;
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-extra {
+      margin-top: 28px;
+      font-size: 0.95rem;
+      opacity: 0.75;
+      font-style: italic;
+    }
+
+    /* ===== TARJETAS DE SERVICIOS ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ebf4ff, #dbeafe);
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .card-icon--sm {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      margin-bottom: 0;
+    }
+
+    .card-icon .icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .card-icon--sm .icon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      flex-grow: 1;
+    }
+
+    /* ===== POR QUÉ ELEGIRNOS ===== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .why-photo {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      background: #dbeafe;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .why-list li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .why-list h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .why-list p {
+      font-size: 0.92rem;
+      color: var(--color-text-light);
+      line-height: 1.6;
+    }
+
+    .why-list .card-icon--sm {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ===== SERVICIOS ADICIONALES ===== */
+    .card-grid--repairs {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .card--compact {
+      flex-direction: row;
+      gap: 16px;
+      padding: 24px;
+      align-items: flex-start;
+    }
+
+    .card--compact h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card--compact p {
+      font-size: 0.88rem;
+    }
+
+    /* ===== GALERÍA ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      background: none;
+      display: block;
+      width: 100%;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    /* ===== COBERTURA ===== */
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .coverage-info h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .zone-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .zone-list li {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    .coverage-expand {
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    /* ===== CONTACTO ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .contact-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-card--whatsapp {
+      border-top: 4px solid var(--color-success);
+    }
+
+    .contact-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #ebf4ff;
+      color: var(--color-primary);
+      margin-bottom: 20px;
+    }
+
+    .contact-icon--whatsapp {
+      background: #e6f9ee;
+      color: var(--color-success);
+    }
+
+    .contact-icon .icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .contact-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .contact-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .contact-value a {
+      color: var(--color-primary);
+      transition: color 0.2s;
+    }
+
+    .contact-value a:hover {
+      color: var(--color-accent);
+    }
+
+    .contact-card p {
+      font-size: 0.92rem;
+      color: var(--color-text-light);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .contact-notes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+    }
+
+    .contact-notes li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      color: var(--color-text-light);
+    }
+
+    .contact-notes .icon {
+      width: 20px;
+      height: 20px;
+      color: var(--color-primary);
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background-color: #0f1f33;
+      color: rgba(255,255,255,0.8);
+      padding: 60px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .footer-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand .footer-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-accent);
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p:last-child {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      opacity: 0.8;
+    }
+
+    .site-footer h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-list a {
+      font-size: 0.92rem;
+      transition: color 0.2s;
+      opacity: 0.8;
+    }
+
+    .footer-list a:hover {
+      color: var(--color-accent);
+      opacity: 1;
+    }
+
+    .footer-icon-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-icon-link .icon {
+      width: 18px;
+      height: 18px;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    /* ===== CRÉDITO DESARROLLADOR ===== */
+    .footer-credit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .footer-credit a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      transition: color 0.2s;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .footer-credit a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .footer-credit .developer-logo {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 4px;
+      background: #fff;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+
+    .footer-credit-text {
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .why-grid,
+      .coverage-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .site-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--color-primary);
+        padding: 20px 24px;
+        box-shadow: var(--shadow-md);
+      }
+
+      .site-nav.is-open {
+        display: block;
+      }
+
+      .site-nav ul {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .header-inner {
+        position: relative;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .section-head h2 {
+        font-size: 1.6rem;
+      }
+
+      .hero {
+        padding: 70px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+
+      .hero-lead {
+        font-size: 1.05rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .contact-notes {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .contact-value {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .section-head h2 {
+        font-size: 1.4rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 24px 20px;
+      }
+
+      .contact-card {
+        padding: 28px 20px;
+      }
+
+      .footer-credit {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== SVG SPRITE ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zM20.52 3.45A11.8 11.8 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89 0-3.18-1.24-6.16-3.48-8.41z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-location" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2.7s7 6.6 7 11.3a7 7 0 0 1-14 0C5 9.3 12 2.7 12 2.7z"/><path d="M9 14a3 3 0 0 0 3 3"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M9.6 4.6A2 2 0 1 1 11 8H2M12.6 19.4A2 2 0 1 0 14 16H2M17.7 7.7A2.5 2.5 0 1 1 19.5 12H2"/></symbol>
+    <symbol id="i-thermometer" viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  </svg>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#inicio">
+        Raúl Pérez
+        <span class="brand-sub">Mantenimiento General</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#porque">Por qué elegirnos</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Abrir menú">
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== HERO ===== -->
+    <section id="inicio" class="hero">
+      <div class="container hero-content">
+        <p class="hero-eyebrow">Electricidad · Plomería · Aire Acondicionado · Perforación</p>
+        <h1>Soluciones integrales para tu hogar o negocio</h1>
+        <p class="hero-lead">
+          Raúl Pérez, especialista en mantenimiento general. Instalaciones eléctricas, plomería, equipos de aire acondicionado, calentadores de agua, perforación de paredes para tomacorrientes, cuadros y mucho más.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--whatsapp btn--lg" href="https://wa.me/5352616236?text=Hola%20Ra%C3%BAl%2C%20necesito%20un%20servicio%20de%20mantenimiento" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+            Contactar por WhatsApp
+          </a>
+          <a class="btn btn--accent btn--lg" href="#servicios">
+            Ver servicios
+          </a>
+        </div>
+        <p class="hero-extra">Disponible para trabajos en interiores y exteriores. Presupuesto sin compromiso.</p>
+      </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section id="servicios" class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>Servicios profesionales</h2>
+          <p>Todo lo que necesitas para mantener tu espacio seguro, funcional y bien equipado.</p>
+        </header>
+
+        <ul class="card-grid">
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-zap"></use></svg></span>
+            <h3>Electricidad general</h3>
+            <p>Instalación y reparación de tomacorrientes, interruptores, luminarias, tableros eléctricos y cableado en general. Trabajos seguros y certificados.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-droplet"></use></svg></span>
+            <h3>Plomería</h3>
+            <p>Reparación de fugas, instalación de tuberías, grifos, sanitarios, calentadores de agua y sistemas de bombeo. Soluciones duraderas y limpias.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-wind"></use></svg></span>
+            <h3>Aire acondicionado</h3>
+            <p>Instalación, mantenimiento y reparación de equipos de aire acondicionado split y ventana. limpieza de filtros y diagnóstico completo.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-thermometer"></use></svg></span>
+            <h3>Calentadores de agua</h3>
+            <p>Instalación y reparación de calentadores eléctricos y de gas. Mantenimiento preventivo para prolongar la vida útil del equipo.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-tool"></use></svg></span>
+            <h3>Perforación de paredes</h3>
+            <p>Realizamos orificios precisos para instalación de tomacorrientes, cables, tuberías, cuadros, repisas, aires acondicionados y más.</p>
+          </li>
+          <li class="card">
+            <span class="card-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-home"></use></svg></span>
+            <h3>Mantenimiento general</h3>
+            <p>Reparaciones menores, ajustes, instalaciones diversas y mejoras del hogar. Un solo especialista para múltiples necesidades.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== POR QUÉ ELEGIRNOS ===== -->
+    <section id="porque" class="section section--soft">
+      <div class="container why-grid">
+        <div>
+          <img class="why-photo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231e3a5f'/%3E%3Ccircle cx='300' cy='180' r='80' fill='%23e67e22' opacity='0.3'/%3E%3Cpath d='M200 320 Q300 250 400 320' stroke='%23ffffff' stroke-width='8' fill='none' opacity='0.5'/%3E%3Ctext x='300' y='420' text-anchor='middle' fill='white' font-family='sans-serif' font-size='20' opacity='0.6'%3ERa%C3%BAl%20P%C3%A9rez%20-%20Mantenimiento%3C/text%3E%3C/svg%3E" alt="Raúl Pérez, especialista en mantenimiento general" width="600" height="450" loading="lazy">
+        </div>
+        <div>
+          <h2 style="font-size:2rem;font-weight:700;color:var(--color-primary);margin-bottom:32px;">¿Por qué elegir a Raúl Pérez?</h2>
+          <ul class="why-list">
+            <li>
+              <span class="card-icon card-icon--sm"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-star"></use></svg></span>
+              <div>
+                <h3>Experiencia comprobada</h3>
+                <p>Años de trabajo en electricidad, plomería, refrigeración y mantenimiento general. Trabajo bien hecho y garantizado.</p>
+              </div>
+            </li>
+            <li>
+              <span class="card-icon card-icon--sm"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-clock"></use></svg></span>
+              <div>
+                <h3>Puntualidad y seriedad</h3>
+                <p>Cumplimos con los horarios acordados. Tu tiempo es valioso y lo respetamos.</p>
+              </div>
+            </li>
+            <li>
+              <span class="card-icon card-icon--sm"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-check"></use></svg></span>
+              <div>
+                <h3>Soluciones completas</h3>
+                <p>Un solo profesional para múltiples tareas: eléctricas, hidráulicas, climatización e instalaciones. Ahorra tiempo y dinero.</p>
+              </div>
+            </li>
+            <li>
+              <span class="card-icon card-icon--sm"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-whatsapp"></use></svg></span>
+              <div>
+                <h3>Atención personalizada</h3>
+                <p>Comunicación directa por WhatsApp y teléfono. Presupuestos claros y sin sorpresas.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALERÍA ===== -->
+    <section id="galeria" class="section">
+      <div class="container">
+        <header class="section-head">
+          <h2>Trabajos realizados</h2>
+          <p>Una muestra de la calidad y variedad de nuestros servicios.</p>
+        </header>
+
+        <ul class="gallery-grid">
+          <li>
+            <button class="gallery-item" type="button">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232c5282'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-family='sans-serif' font-size='16' opacity='0.7'%3EInstalaci%C3%B3n%20el%C3%A9ctrica%3C/text%3E%3C/svg%3E" alt="Instalación de tomacorrientes" width="400" height="300" loading="lazy">
+              <span class="gallery-cap">Instalación de tomacorrientes</span>
+            </button>
+          </li>
+          <li>
+            <button class="gallery-item" type="button">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231e3a5f'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-family='sans-serif' font-size='16' opacity='0.7'%3EReparaci%C3%B3n%20de%20tuber%C3%ADas%3C/text%3E%3C/svg%3E" alt="Reparación de plomería" width="400" height="300" loading="lazy">
+              <span class="gallery-cap">Reparación de plomería</span>
+            </button>
+          </li>
+          <li>
+            <button class="gallery-item" type="button">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e67e22'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-family='sans-serif' font-size='16' opacity='0.7'%3EAire%20acondicionado%3C/text%3E%3C/svg%3E" alt="Instalación de aire acondicionado" width="400" height="300" loading="lazy">
+              <span class="gallery-cap">Instalación de aire acondicionado</span>
+            </button>
+          </li>
+          <li>
+            <button class="gallery-item" type="button">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232d3748'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-family='sans-serif' font-size='16' opacity='0.7'%3EPerforaci%C3%B3n%20de%20paredes%3C/text%3E%3C/svg%3E" alt="Perforación de paredes" width="400" height="300" loading="lazy">
+              <span class="gallery-cap">Perforación de paredes</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section id="contacto" class="section section--soft">
+      <div class="container">
+        <header class="section-head">
+          <h2>Contacto</h2>
+          <p>Estamos listos para atender tu solicitud. Comunicación directa y respuesta rápida.</p>
+        </header>
+
+        <div class="contact-grid">
+          <article class="contact-card contact-card--whatsapp">
+            <span class="contact-icon contact-icon--whatsapp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg></span>
+            <h3>WhatsApp</h3>
+            <p class="contact-value"><a href="https://wa.me/5352616236" target="_blank" rel="noopener">+53 5 261 6236</a></p>
+            <p>La vía más rápida. Envíe un mensaje y responderemos lo antes posible.</p>
+            <a class="btn btn--whatsapp btn--lg" href="https://wa.me/5352616236?text=Hola%20Ra%C3%BAl%2C%20necesito%20un%20servicio" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+              Enviar mensaje
+            </a>
+          </article>
+
+          <article class="contact-card">
+            <span class="contact-icon"><svg class="icon icon--stroke" aria-hidden="true"><use href="#i-mail"></use></svg></span>
+            <h3>Correo electrónico</h3>
+            <p class="contact-value"><a href="mailto:raulperez54@gmail.com">raulperez54@gmail.com</a></p>
+            <p>Escríbanos con los detalles de su proyecto y le enviaremos un presupuesto.</p>
+            <a class="btn btn--outline btn--lg" href="mailto:raulperez54@gmail.com?subject=Consulta%20de%20servicio%20-%20Ra%C3%BAl%20P%C3%A9rez">
+              <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-mail"></use></svg>
+              Enviar correo
+            </a>
+          </article>
+        </div>
+
+        <ul class="contact-notes">
+          <li>
+            <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-clock"></use></svg>
+            <span>Disponible de lunes a domingo</span>
+          </li>
+          <li>
+            <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-location"></use></svg>
+            <span>Servicio en la zona y alrededores</span>
+          </li>
+          <li>
+            <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-phone"></use></svg>
+            <span>Llame al +53 5 261 6236</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <p class="footer-name">Raúl Pérez</p>
+          <p class="footer-tag">Mantenimiento General</p>
+          <p>Electricidad, plomería, aire acondicionado, calentadores de agua y perforación de paredes. Servicio profesional, confiable y con garantía.</p>
+        </div>
+
+        <nav aria-label="Enlaces rápidos">
+          <h3>Enlaces</h3>
+          <ul class="footer-list">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#porque">Por qué elegirnos</a></li>
+            <li><a href="#galeria">Galería</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h3>Contacto directo</h3>
+          <ul class="footer-list">
+            <li>
+              <a class="footer-icon-link" href="https://wa.me/5352616236" target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"></use></svg>
+                <span>+53 5 261 6236</span>
+              </a>
+            </li>
+            <li>
+              <a class="footer-icon-link" href="mailto:raulperez54@gmail.com">
+                <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-mail"></use></svg>
+                <span>raulperez54@gmail.com</span>
+              </a>
+            </li>
+            <li class="footer-icon-link">
+              <svg class="icon icon--stroke" aria-hidden="true"><use href="#i-location"></use></svg>
+              <span>Servicio a domicilio</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Raúl Pérez. Todos los derechos reservados.</p>
+        <div class="footer-credit">
+          <span class="footer-credit-text">Sitio desarrollado por:</span>
+          <a href="https://techsolitions.onrender.com/index" target="_blank" rel="noopener">
+            <img
+              class="developer-logo"
+              src="arquia-cuno.png"
+              alt="Logo de Arquia - Llevamos tus ideas al mundo digital.."
+              width="28"
+              height="28"
+              loading="lazy"
+              onerror="this.onerror=null; this.src='https://techsolitions.onrender.com/arquia-logo.png';"
+            >
+            <span>Arquia - Llevamos tus ideas al mundo digital...</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // ---- MENÚ MÓVIL ----
+      var navToggle = document.querySelector('.nav-toggle');
+      var siteNav = document.getElementById('site-nav');
+
+      if (navToggle && siteNav) {
+        navToggle.addEventListener('click', function() {
+          var expanded = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', !expanded);
+          siteNav.classList.toggle('is-open');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        siteNav.querySelectorAll('a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            navToggle.setAttribute('aria-expanded', 'false');
+            siteNav.classList.remove('is-open');
+          });
+        });
+      }
+
+      // ---- AÑO DINÁMICO ----
+      var yearSpan = document.querySelector('[data-year]');
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+
+      // ---- SCROLL SUAVE (fallback) ----
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          var target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
