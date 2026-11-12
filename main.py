@@ -616,9 +616,129 @@ def read_root():
 
 #leeds
 
+from fastapi import FastAPI, Request, BackgroundTasks
+from fastapi.responses import FileResponse
+from pydantic import BaseModel, EmailStr, Field
+from typing import Optional
+from datetime import datetime
+import json
+import os
+
+from services.email_service import enviar_notificacion_lead
+
+#app = FastAPI(title="Arquia API")
+
+LEADS_FILE = "leads_temp.json"
 
 
+# ---------- Páginas ----------
+@app.get("/techsolutions", include_in_schema=False)
+async def techsolutions():
+    return FileResponse("templates/techsolutions.html")
 
+
+@app.get("/portafolio", include_in_schema=False)
+async def portafolio():
+    return FileResponse("templates/portafolio.html")
+
+
+# ---------- Modelo de validación ----------
+class LeadCreate(BaseModel):
+    nombre: str = Field(..., min_length=2, max_length=120)
+    email: EmailStr
+    telefono: Optional[str] = Field(None, max_length=50)
+    empresa: Optional[str] = Field(None, max_length=150)
+    servicio: str = Field(..., min_length=2, max_length=100)
+    presupuesto: Optional[str] = Field(None, max_length=50)
+    descripcion: str = Field(..., min_length=10, max_length=2000)
+
+
+# ---------- Persistencia temporal ----------
+def guardar_lead_temp(lead_data: dict) -> None:
+    leads = []
+    if os.path.exists(LEADS_FILE):
+        with open(LEADS_FILE, "r", encoding="utf-8") as f:
+            try:
+                leads = json.load(f)
+            except json.JSONDecodeError:
+                leads = []
+
+    lead_data["id"] = len(leads) + 1
+    lead_data["fecha_creacion"] = datetime.now().isoformat()
+    lead_data["estado"] = "nuevo"
+    lead_data["leido"] = False
+    leads.append(lead_data)
+
+    with open(LEADS_FILE, "w", encoding="utf-8") as f:
+        json.dump(leads, f, ensure_ascii=False, indent=2)
+
+
+# ---------- Endpoint público ----------
+@app.post("/api/leads", status_code=201)
+async def crear_lead(
+    lead: LeadCreate,
+    request: Request,
+    background_tasks: BackgroundTasks,
+):
+    data = lead.model_dump() if hasattr(lead, "model_dump") else lead.dict()
+    data["ip_origen"] = request.client.host if request.client else None
+
+    # 1. Guardar en JSON (luego migraremos a SQLAlchemy)
+    guardar_lead_temp(data)
+
+    # 2. Enviar correo en segundo plano
+    background_tasks.add_task(enviar_notificacion_lead, data)
+
+    return {
+        "ok": True,
+        "mensaje": "Solicitud recibida correctamente. Te contactaremos pronto.",
+    }
+
+#estimacion endpoint 
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from services.estimacion_service import generar_estimacion
+from schemas.estimacion_schema import EstimacionResponse
+
+# Rate limiter (una sola instancia global)
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+
+class EstimacionRequest(BaseModel):
+    descripcion: str = Field(
+        ...,
+        min_length=20,
+        max_length=2000,
+        description="Describe tu proyecto: qué problema quieres resolver, qué procesos necesitas automatizar, etc."
+    )
+
+
+@app.post("/api/estimacion", response_model=EstimacionResponse)
+@limiter.limit("5/minute")
+async def estimar_proyecto(
+    request: Request,
+    payload: EstimacionRequest,
+):
+    """
+    Endpoint PÚBLICO para que un cliente potencial obtenga una estimación
+    orientativa de su proyecto usando IA.
+    """
+    try:
+        estimacion = await generar_estimacion(payload.descripcion)
+        return estimacion
+    except Exception as e:
+        print(f"[Estimación] Error: {e}")
+        raise HTTPException(
+            status_code=503,
+            detail="El servicio de estimación no está disponible en este momento. Intenta de nuevo en unos minutos."
+        )
+
+@app.get("/estimador", include_in_schema=False)
+async def estimador():
+    return FileResponse("templates/estimador.html")
 
 
 # ========== EJECUCIÓN ==========

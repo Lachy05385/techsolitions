@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquia | Estimador de Proyectos</title>
+    <style>
+        :root { --bg:#0a0e27; --card:#141830; --border:#1f2545; --text:#e0e0e0; --dim:#b0b8c8; --a1:#00d4ff; --a2:#00ffa3; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Segoe UI',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding:2rem; }
+        .container { max-width:800px; margin:0 auto; }
+        h1 { color:#fff; margin-bottom:.5rem; }
+        h1 span { background:linear-gradient(90deg,var(--a1),var(--a2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .sub { color:var(--dim); margin-bottom:2rem; }
+        textarea { width:100%; min-height:140px; padding:1rem; background:var(--card); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:inherit; font-size:1rem; }
+        textarea:focus { outline:none; border-color:var(--a1); }
+        .btn { margin-top:1rem; padding:.9rem 2rem; border:none; border-radius:50px; background:linear-gradient(90deg,var(--a1),var(--a2)); color:var(--bg); font-weight:700; font-size:1rem; cursor:pointer; }
+        .btn:disabled { opacity:.5; cursor:not-allowed; }
+        .result { margin-top:2rem; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2rem; display:none; }
+        .result.show { display:block; }
+        .badge { display:inline-block; padding:.3rem 1rem; border-radius:50px; font-weight:700; font-size:.85rem; margin-bottom:1rem; }
+        .badge.BÁSICO { background:rgba(0,255,163,.15); color:var(--a2); }
+        .badge.MEDIO { background:rgba(255,193,7,.15); color:#ffc107; }
+        .badge.ALTO { background:rgba(255,71,87,.15); color:#ff4757; }
+        .precio { font-size:2rem; font-weight:800; color:var(--a1); margin:1rem 0; }
+        .modulo { padding:.8rem 0; border-bottom:1px solid var(--border); }
+        .modulo:last-child { border-bottom:none; }
+        .modulo-nombre { color:#fff; font-weight:600; }
+        .modulo-horas { color:var(--a2); font-weight:700; }
+        .advertencias { margin-top:1rem; padding:1rem; background:rgba(255,193,7,.08); border-left:3px solid #ffc107; border-radius:8px; font-size:.9rem; }
+        .error { margin-top:1rem; color:#ff4757; display:none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Estimador de <span>Proyectos</span></h1>
+        <p class="sub">Cuéntanos tu idea. La IA analizará la complejidad y te dará un rango orientativo.</p>
+
+        <textarea id="desc" placeholder="Ej: Necesito una página para administrar clientes de mi negocio, con login de usuarios y reportes..."></textarea>
+        <button class="btn" id="btn">Obtener Estimación</button>
+        <p class="error" id="error"></p>
+
+        <div class="result" id="result">
+            <div id="badge"></div>
+            <div class="precio" id="precio"></div>
+            <div id="modulos"></div>
+            <div id="advertencias"></div>
+            <p style="margin-top:1rem; color:var(--dim); font-size:.9rem;" id="resumen"></p>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('btn');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+
+        btn.addEventListener('click', async () => {
+            const descripcion = document.getElementById('desc').value.trim();
+            if (descripcion.length < 20) {
+                error.textContent = 'Describe tu proyecto con al menos 20 caracteres.';
+                error.style.display = 'block';
+                return;
+            }
+            error.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Analizando...';
+            result.classList.remove('show');
+
+            try {
+                const res = await fetch('/api/estimacion', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ descripcion }),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.detail || 'Error al estimar');
+
+                document.getElementById('badge').innerHTML =
+                    `<span class="badge ${data.complejidad}">${data.complejidad}</span>`;
+                document.getElementById('precio').textContent =
+                    `$${data.precio_min_usd} – $${data.precio_max_usd} USD`;
+                document.getElementById('modulos').innerHTML = data.modulos.map(m =>
+                    `<div class="modulo">
+                        <div class="modulo-nombre">${m.nombre} ${m.presente_en_descripcion ? '' : '(asumido)'}</div>
+                        <div class="modulo-horas">${m.horas_min}–${m.horas_max} h</div>
+                        <div style="font-size:.85rem;color:var(--dim);">${m.justificacion}</div>
+                    </div>`
+                ).join('');
+                document.getElementById('advertencias').innerHTML =
+                    data.advertencias.length
+                        ? `<div class="advertencias"><strong>⚠️ Para afinar la estimación:</strong><ul>${data.advertencias.map(a=>`<li>${a}</li>`).join('')}</ul></div>`
+                        : '';
+                document.getElementById('resumen').textContent = data.resumen_para_cliente;
+                result.classList.add('show');
+            } catch (e) {
+                error.textContent = e.message;
+                error.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Obtener Estimación';
+            }
+        });
+    </script>
+</body>
+</html>

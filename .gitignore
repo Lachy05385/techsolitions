@@ -1,0 +1,33 @@
+# Entorno y secretos
+.env
+.env.local
+*.env
+
+# Carpetas del proyecto que no se versionan
+/uploads/
+/web/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# Archivos temporales y datos
+leads_temp.json
+*.log
+*.tmp
+
+# Base de datos local
+*.db
+*.sqlite3
+
+# VS Code
+.vscode/
+
+# Sistema operativo
+Thumbs.db
+.DS_Store

@@ -22,3 +22,19 @@ APP_CONFIG = {
     "allowed_mime_types": ALLOWED_MIME_TYPES,
     "avatar_base_url": "/uploads/avatars/"  # URL base para servir archivos
 }
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    RESEND_API_KEY: str
+    RESEND_FROM_EMAIL: str = "onboarding@resend.dev"
+    RESEND_FROM_NAME: str = "Arquia"
+    NOTIFICATION_EMAIL: str
+    GROQ_API_KEY: str
+    TARIFA_HORARIA_USD: float = 25.0
+
+
+settings = Settings()

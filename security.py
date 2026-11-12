@@ -1,26 +1,36 @@
-import bcrypt
+import os
 import hashlib
-from datetime import datetime, timedelta
+import bcrypt
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 from jose import JWTError, jwt
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # ========== CONFIGURACIÓN ==========
-SECRET_KEY = "my-secret-key-change-in-production"  # ¡Cambiar en producción!
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise ValueError("❌ Falta la variable de entorno SECRET_KEY")
+
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+
 
 # ========== FUNCIONES JWT ==========
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Crea un token JWT"""
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    
+        expire = datetime.now(timezone.utc) + timedelta(
+            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+        )
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
 
 def verify_token(token: str):
     """Verifica y decodifica un token JWT"""
@@ -30,45 +40,37 @@ def verify_token(token: str):
     except JWTError:
         return None
 
+
 # ========== FUNCIONES BCRYPT ==========
 def get_password_hash(password: str) -> str:
-    """
-    Genera hash de la contraseña con protección automática 
-    para contraseñas largas (>72 bytes).
-    """
-    # Si la contraseña es muy larga, usamos un hash intermedio SHA-256
-    if len(password.encode('utf-8')) > 72:
-        # Paso 1: Hash con SHA-256 para normalizar a 64 bytes
-        intermediate_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-        # Paso 2: Aplicar bcrypt al hash SHA-256
+    """Genera hash de la contraseña con protección para contraseñas largas."""
+    if len(password.encode("utf-8")) > 72:
+        intermediate_hash = hashlib.sha256(password.encode("utf-8")).hexdigest()
         return bcrypt.hashpw(
-            intermediate_hash.encode('utf-8'),
-            bcrypt.gensalt()
-        ).decode('utf-8')
-    else:
-        # Contraseña normal, bcrypt directo
-        return bcrypt.hashpw(
-            password.encode('utf-8'),
-            bcrypt.gensalt()
-        ).decode('utf-8')
+            intermediate_hash.encode("utf-8"), bcrypt.gensalt()
+        ).decode("utf-8")
+    return bcrypt.hashpw(
+        password.encode("utf-8"), bcrypt.gensalt()
+    ).decode("utf-8")
+
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """
-    Verifica contraseña, compatible con ambos métodos de hash.
-    """
+    """Verifica contraseña, compatible con ambos métodos de hash."""
     try:
-        # Intento 1: Verificación directa (para contraseñas normales)
-        if bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8')):
+        if bcrypt.checkpw(
+            plain_password.encode("utf-8"), hashed_password.encode("utf-8")
+        ):
             return True
-    except:
+    except Exception:
         pass
-    
-    # Intento 2: Si falla, probar con método SHA-256 + bcrypt
+
     try:
-        intermediate_hash = hashlib.sha256(plain_password.encode('utf-8')).hexdigest()
+        intermediate_hash = hashlib.sha256(
+            plain_password.encode("utf-8")
+        ).hexdigest()
         return bcrypt.checkpw(
-            intermediate_hash.encode('utf-8'), 
-            hashed_password.encode('utf-8')
+            intermediate_hash.encode("utf-8"),
+            hashed_password.encode("utf-8"),
         )
-    except:
+    except Exception:
         return False
