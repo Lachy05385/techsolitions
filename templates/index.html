@@ -141,10 +141,22 @@
             gap: 1.5rem;
         }
         .service-card {
-            background: var(--bg-card); border-radius: 16px;
-            padding: 2rem; border: 1px solid var(--border);
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
+
+            /* 👇 nuevas líneas */
+            display: block;              /* que se comporte como bloque */
+            text-decoration: none;       /* quita el subrayado del enlace */
+            color: inherit;              /* hereda el color del texto normal */
         }
+
+
+
+
+        
         .service-card:hover {
             border-color: var(--accent-1); transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
@@ -291,9 +303,13 @@
             Soluciones tecnológicas adaptadas a las necesidades reales de tu negocio.
         </p>
         <div class="services-grid">
+            
             <div class="service-card">
+                
                 <span class="service-icon">💻</span>
-                <h3>Desarrollo Web a Medida</h3>
+                <a href = "/amedida" class="service-link">
+                    <h3>Desarrollo Web a Medida</h3>
+                </a>
                 <p>Aplicaciones web con FastAPI, Python y bases de datos SQL. Sistemas de gestión, paneles administrativos y portales para clientes.</p>
             </div>
             <div class="service-card">
@@ -327,7 +343,7 @@
     <section id="contacto">
         <h2 class="section-title">Cuéntanos tu proyecto</h2>
         <p class="section-subtitle">
-            Completa el formulario y nos pondremos en contacto contigo en menos de 24 horas.
+            Completa el formulario y nos pondremos en contacto contigo lo antes posible...
         </p>
 
         <div class="form-section">
@@ -432,6 +448,10 @@
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+
+        
+
+
 
             ['telefono', 'empresa', 'presupuesto'].forEach(k => {
                 if (!data[k]) delete data[k];

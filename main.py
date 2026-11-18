@@ -641,6 +641,13 @@ async def techsolutions():
 async def portafolio():
     return FileResponse("templates/portafolio.html")
 
+@app.get("/amedida", include_in_schema=False)
+async def portafolio():
+    return FileResponse("templates/software_a_medida.html")
+
+
+
+
 
 # ---------- Modelo de validación ----------
 class LeadCreate(BaseModel):

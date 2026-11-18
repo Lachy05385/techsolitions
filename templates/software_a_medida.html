@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software a Medida | Arquia</title>
+    <meta name="description" content="Descubre qué es el desarrollo de software a medida, sus ventajas frente al software de terceros y por qué es la mejor inversión para tu negocio.">
+    <style>
+        /* ----- Variables de color (armonía con Arquia) ----- */
+        :root {
+            --bg: #0a0e27;
+            --bg-card: #141830;
+            --bg-card-2: #1a1f3a;
+            --border: #1f2545;
+            --text: #e0e0e0;
+            --text-dim: #b0b8c8;
+            --accent-1: #00d4ff;
+            --accent-2: #00ffa3;
+            --danger: #ff4757;
+            --sombra: 0 8px 30px rgba(0, 0, 0, 0.35);
+            --radio: 16px;
+            --transicion: 0.3s ease;
+        }
+
+        /* ----- Reset y base ----- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ----- Tipografía ----- */
+        h1, h2, h3, h4 {
+            line-height: 1.25;
+            font-weight: 700;
+            color: #fff;
+        }
+        h1 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.5px; }
+        h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin-bottom: 1.5rem; }
+        h3 { font-size: clamp(1.1rem, 2.5vw, 1.35rem); margin-bottom: 0.6rem; }
+        p { color: var(--text-dim); margin-bottom: 1rem; }
+
+        /* ----- Header / Hero ----- */
+        .hero {
+            background: var(--bg);
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            top: -10%; left: -5%;
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 255, 163, 0.10) 0%, transparent 70%);
+            bottom: -10%; right: -5%;
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .hero__etiqueta {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-1);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            max-width: 850px;
+            margin: 0 auto 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 span {
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero__subtitulo {
+            max-width: 720px;
+            margin: 0 auto 2rem;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--text-dim);
+            position: relative;
+            z-index: 1;
+        }
+        .hero__boton {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform var(--transicion), box-shadow var(--transicion);
+            position: relative;
+            z-index: 1;
+        }
+        .hero__boton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.35);
+        }
+
+        /* ----- Secciones ----- */
+        section { padding: 4.5rem 0; }
+        .seccion--alterna {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .seccion__intro {
+            max-width: 750px;
+            margin: 0 auto 2.5rem;
+            text-align: center;
+        }
+
+        /* ----- Grid ----- */
+        .grid { display: grid; gap: 1.5rem; }
+        .grid--2 { grid-template-columns: 1fr; }
+        @media (min-width: 768px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+
+        /* ----- Tarjetas ----- */
+        .tarjeta {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radio);
+            padding: 1.75rem;
+            box-shadow: var(--sombra);
+            transition: transform var(--transicion), border-color var(--transicion), box-shadow var(--transicion);
+        }
+        .tarjeta:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-1);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.08);
+        }
+        .tarjeta__icono {
+            width: 48px; height: 48px;
+            border-radius: 10px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .tarjeta p { margin-bottom: 0; font-size: 0.95rem; }
+
+        /* ----- Comparativa ----- */
+        .comparativa {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr;
+            margin-top: 2rem;
+        }
+        @media (min-width: 768px) { .comparativa { grid-template-columns: 1fr 1fr; } }
+
+        .comparativa__columna {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radio);
+            padding: 2rem;
+            box-shadow: var(--sombra);
+        }
+        .comparativa__columna--destacada {
+            border: 2px solid var(--accent-1);
+            position: relative;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.04), var(--bg-card));
+        }
+        .comparativa__columna--destacada::before {
+            content: "Recomendado";
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .comparativa__titulo {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+        }
+        .comparativa__lista { list-style: none; padding: 0; }
+        .comparativa__lista li {
+            display: flex;
+            gap: 0.6rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+        .comparativa__lista li:last-child { border-bottom: none; }
+        .comparativa__lista .check { color: var(--accent-2); font-weight: 700; flex-shrink: 0; }
+        .comparativa__lista .cruz { color: var(--danger); font-weight: 700; flex-shrink: 0; }
+
+        /* ----- Beneficios ----- */
+        .beneficios {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 640px) { .beneficios { grid-template-columns: 1fr 1fr; } }
+
+        .beneficio {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radio);
+            padding: 1.25rem;
+            transition: border-color var(--transicion), transform var(--transicion);
+        }
+        .beneficio:hover {
+            border-color: var(--accent-1);
+            transform: translateY(-4px);
+        }
+        .beneficio__icono {
+            flex-shrink: 0;
+            width: 42px; height: 42px;
+            border-radius: 8px;
+            background: rgba(0, 255, 163, 0.08);
+            border: 1px solid rgba(0, 255, 163, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .beneficio__texto h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+        .beneficio__texto p { font-size: 0.92rem; margin-bottom: 0; }
+
+        /* ----- Desafíos (transparencia) ----- */
+        .desafios {
+            display: grid;
+            gap: 1.25rem;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 640px) { .desafios { grid-template-columns: repeat(3, 1fr); } }
+
+        .desafio {
+            background: rgba(255, 71, 87, 0.05);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-radius: var(--radio);
+            padding: 1.5rem;
+            transition: border-color var(--transicion);
+        }
+        .desafio:hover { border-color: rgba(255, 71, 87, 0.5); }
+        .desafio h3 {
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+            color: #ffb3b9;
+        }
+        .desafio p {
+            font-size: 0.92rem;
+            margin-bottom: 0;
+            color: var(--text-dim);
+        }
+
+        /* ----- CTA final ----- */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.10), rgba(0, 255, 163, 0.06));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3.5rem 1.5rem;
+            margin: 1rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+        }
+        .cta h2 { color: #fff; margin-bottom: 1rem; }
+        .cta p {
+            color: var(--text-dim);
+            max-width: 620px;
+            margin: 0 auto 2rem;
+        }
+        .cta__boton {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            color: var(--bg);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform var(--transicion), box-shadow var(--transicion);
+        }
+        .cta__boton:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.35);
+        }
+
+        /* ----- Footer ----- */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--accent-1); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero">
+        <div class="contenedor">
+            <span class="hero__etiqueta">🚀 Desarrollo Profesional</span>
+            <h1>Software a <span>Medida</span></h1>
+            <p class="hero__subtitulo">
+                Como un traje hecho a medida: diseñamos, construimos y perfeccionamos
+                la solución digital exacta que tu negocio necesita. No adaptes tu empresa
+                al software; adapta el software a tu empresa.
+            </p>
+            <a href="#que-es" class="hero__boton">Descubre cómo funciona</a>
+        </div>
+    </header>
+
+    <!-- ===== ¿QUÉ ES? ===== -->
+    <section id="que-es">
+        <div class="contenedor">
+            <div class="seccion__intro">
+                <h2>¿Qué es el desarrollo de software a medida?</h2>
+                <p>
+                    Imagina el software estándar como un traje de talla única. Puede que funcione,
+                    pero nunca es perfecto. El desarrollo de software a medida es como tener un
+                    sastre personal que crea la solución perfecta para tu negocio.
+                </p>
+            </div>
+
+            <div class="grid grid--2">
+                <div class="tarjeta">
+                    <div class="tarjeta__icono">🎯</div>
+                    <h3>Construido desde cero</h3>
+                    <p>
+                        Cada línea de código, característica y función se diseña teniendo en cuenta
+                        tus desafíos y objetivos específicos. No hay plantillas genéricas: hay una
+                        herramienta digital que se integra con tu empresa.
+                    </p>
+                </div>
+                <div class="tarjeta">
+                    <div class="tarjeta__icono">🤝</div>
+                    <h3>Un equipo experto a tu servicio</h3>
+                    <p>
+                        Un equipo de desarrolladores expertos utiliza su experiencia para crear
+                        una solución que se ajuste perfectamente al modelo único de tu negocio,
+                        empoderándote para convertir tu visión en realidad.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VENTAJAS ===== -->
+    <section class="seccion--alterna">
+        <div class="contenedor">
+            <div class="seccion__intro">
+                <h2>Ventajas del software a medida</h2>
+                <p>
+                    Invertir en una solución personalizada no es un gasto: es una ventaja
+                    competitiva que transforma la forma en que opera tu negocio.
+                </p>
+            </div>
+
+            <div class="beneficios">
+                <div class="beneficio">
+                    <div class="beneficio__icono">👔</div>
+                    <div class="beneficio__texto">
+                        <h3>Un ajuste perfecto</h3>
+                        <p>El software se adapta a tu negocio como un guante, atendiendo tus necesidades específicas y optimizando tus flujos de trabajo únicos.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio__icono">📈</div>
+                    <div class="beneficio__texto">
+                        <h3>Margen de crecimiento</h3>
+                        <p>Las soluciones personalizadas se diseñan pensando en la escalabilidad, creciendo al ritmo de tu negocio.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio__icono">🔗</div>
+                    <div class="beneficio__texto">
+                        <h3>Integración perfecta</h3>
+                        <p>Se integra con tu tecnología existente, eliminando problemas de compatibilidad y aumentando la eficiencia general.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio__icono">⭐</div>
+                    <div class="beneficio__texto">
+                        <h3>Destácate de la competencia</h3>
+                        <p>Crea características y funcionalidades únicas que te diferencian y fortalecen la imagen de tu marca.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio__icono">🔒</div>
+                    <div class="beneficio__texto">
+                        <h3>Seguridad a medida (Fort Knox)</h3>
+                        <p>Medidas de seguridad robustas y personalizadas para proteger tus datos confidenciales y brindarte tranquilidad.</p>
+                    </div>
+                </div>
+                <div class="beneficio">
+                    <div class="beneficio__icono">🎛️</div>
+                    <div class="beneficio__texto">
+                        <h3>Control total</h3>
+                        <p>Automatiza flujos de trabajo complejos, integra sistemas dispares y crea experiencias de usuario que deleiten a tus clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== COMPARATIVA ===== -->
+    <section>
+        <div class="contenedor">
+            <div class="seccion__intro">
+                <h2>Software a medida vs. Software de terceros</h2>
+                <p>
+                    Entendemos que la inversión inicial es mayor. Pero compara lo que obtienes
+                    a cambio: una solución que trabaja para ti, no al revés.
+                </p>
+            </div>
+
+            <div class="comparativa">
+                <!-- Software de terceros -->
+                <div class="comparativa__columna">
+                    <div class="comparativa__titulo">📦 Software de terceros</div>
+                    <ul class="comparativa__lista">
+                        <li><span class="cruz">✕</span> Talla única: debes adaptar tus procesos a la herramienta.</li>
+                        <li><span class="cruz">✕</span> Funcionalidades genéricas que no cubren tus necesidades reales.</li>
+                        <li><span class="cruz">✕</span> Problemas de compatibilidad con tus sistemas existentes.</li>
+                        <li><span class="cruz">✕</span> Poco margen para diferenciarte de la competencia.</li>
+                        <li><span class="cruz">✕</span> Seguridad estándar, no diseñada para tus riesgos específicos.</li>
+                        <li><span class="check">✓</span> Inversión inicial menor y puesta en marcha más rápida.</li>
+                    </ul>
+                </div>
+
+                <!-- Software a medida -->
+                <div class="comparativa__columna comparativa__columna--destacada">
+                    <div class="comparativa__titulo">🛠️ Software a medida</div>
+                    <ul class="comparativa__lista">
+                        <li><span class="check">✓</span> Ajuste perfecto: el software se adapta a tus procesos.</li>
+                        <li><span class="check">✓</span> Funcionalidades únicas diseñadas para tus objetivos.</li>
+                        <li><span class="check">✓</span> Integración perfecta con tu tecnología existente.</li>
+                        <li><span class="check">✓</span> Ventaja competitiva real y fortalecimiento de tu marca.</li>
+                        <li><span class="check">✓</span> Seguridad robusta y personalizada para tus datos.</li>
+                        <li><span class="check">✓</span> Escalabilidad garantizada: crece al ritmo de tu negocio.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TRANSPARENCIA: DESAFÍOS ===== -->
+    <section class="seccion--alterna">
+        <div class="contenedor">
+            <div class="seccion__intro">
+                <h2>Transparencia: lo que debes saber</h2>
+                <p>
+                    Creemos en la honestidad. El software a medida es una inversión significativa
+                    y conlleva compromisos que asumimos contigo.
+                </p>
+            </div>
+
+            <div class="desafios">
+                <div class="desafio">
+                    <h3>💰 La inversión</h3>
+                    <p>El desarrollo a medida requiere una inversión inicial más significativa que las opciones estándar del mercado. Es una inversión en un activo que es tuyo.</p>
+                </div>
+                <div class="desafio">
+                    <h3>⏳ El tiempo de desarrollo</h3>
+                    <p>Construir desde cero lleva tiempo. Los plazos de entrega pueden ser más largos que implementar una solución prefabricada.</p>
+                </div>
+                <div class="desafio">
+                    <h3>🔄 El mantenimiento continuo</h3>
+                    <p>El software a medida requiere mantenimiento y actualizaciones constantes para adaptarse a las tendencias y amenazas de seguridad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONCLUSIÓN + CTA ===== -->
+    <section>
+        <div class="contenedor">
+            <div class="cta">
+                <h2>¿Por qué los beneficios superan la inversión?</h2>
+                <p>
+                    La decisión entre software a medida y software estándar depende de tus
+                    necesidades y prioridades. El software a medida ofrece flexibilidad y
+                    escalabilidad incomparables, además de una ventaja competitiva real.
+                    Es una inversión que trabaja para ti todos los días, mientras el software
+                    genérico te obliga a trabajar para él.
+                </p>
+                
+                <a href="/index/#contacto" class="cta__boton">Hablemos de tu proyecto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="contenedor">
+            <p>© 2026 <strong>Arquia</strong> — Software a Medida. Tu visión, línea de código a línea de código.</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="/index">inicio</a> ·
+                <a href="/portafolio">Portafolio</a> ·
+                <a href="mailto:lazaro.saavedrag@gmail.com">lazaro.saavedrag@gmail.com</a> ·
+                <a href="https://github.com/Lachy05385" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
